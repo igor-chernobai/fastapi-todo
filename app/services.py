@@ -1,3 +1,5 @@
+from fastapi import HTTPException
+
 from app.schemas import TaskCreate, TaskResponse
 from app import storage
 
@@ -9,4 +11,14 @@ def create_task(task: TaskCreate) -> TaskResponse:
     storage.tasks[storage.task_id] = task_dict
     storage.task_id += 1
 
-    return TaskResponse(**task_dict)
+    return task_dict
+
+
+def update_task(task_id: int, task_data: TaskCreate):
+    if task_id not in storage.tasks:
+        raise HTTPException(status_code=404, detail='Task not found')
+
+    updated_task_dict = {'id': task_id, **task_data.model_dump()}
+    storage.tasks[task_id] = updated_task_dict
+
+    return updated_task_dict
