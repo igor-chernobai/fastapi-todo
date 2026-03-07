@@ -15,7 +15,7 @@ def get_tasks() -> list[TaskResponse]:
     return list(storage.tasks.values())
 
 
-@task_router.post('/')
+@task_router.post('/', status_code=201)
 def create_task_view(task: TaskCreate) -> TaskResponse:
     """
     Create a new task and return the created task object.
