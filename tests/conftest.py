@@ -14,3 +14,9 @@ def client():
 @pytest.fixture(autouse=True)
 def empty_tasks():
     storage.tasks.clear()
+
+
+@pytest.fixture
+def get_task_id(client):
+    res = client.post('/tasks/', json={'title': 'Old task', 'completed': False})
+    return res.json()['id']

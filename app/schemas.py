@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 
 class TaskCreate(BaseModel):
     title: str = Field(..., min_length=1, max_length=255)
-    completed: bool = False
+    completed: bool
 
 
 class TaskResponse(BaseModel):

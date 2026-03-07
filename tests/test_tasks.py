@@ -30,3 +30,25 @@ def test_get_tasks_list_with_data(client):
 
     assert response.status_code == 200
     assert len(data) == 2
+
+
+def test_update_task_success(client, get_task_id):
+    response = client.put(f'/tasks/{get_task_id}/', json={'title': 'Updated task', 'completed': True})
+    data = response.json()
+
+    assert response.status_code == 200
+    assert data['id'] == get_task_id
+
+    assert data['title'] == 'Updated task'
+    assert data['completed'] is True
+
+
+def test_update_task_validation_errors(client, get_task_id):
+    response = client.put(f'/tasks/9999/', json={'title': 'Updated task', 'completed': True})
+    assert response.status_code == 404
+
+    response = client.put(f'/tasks/{get_task_id}/', json={'title': 'Updated task'})
+    assert response.status_code == 422
+
+    response = client.put(f'/tasks/{get_task_id}/', json={'title': ['Not a string'], 'completed': True})
+    assert response.status_code == 422
