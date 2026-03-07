@@ -2,7 +2,7 @@ from fastapi import FastAPI
 
 from app import storage
 from app.schemas import TaskCreate, TaskResponse
-from app.services import create_task, update_task
+from app.services import create_task, update_task, delete_task
 
 app = FastAPI()
 
@@ -20,7 +20,6 @@ def add_task(task: TaskCreate) -> TaskResponse:
     """
     Create a new task and return the created task object.
     """
-
     return create_task(task)
 
 
@@ -30,3 +29,11 @@ def update_task_view(task_id: int, task_data: TaskCreate):
     Update a task by ID and return the updated task.
     """
     return update_task(task_id, task_data)
+
+
+@app.delete('/tasks/{task_id}', tags=['Tasks'])
+def delete_task_view(task_id: int):
+    """
+    Delete a task by ID
+    """
+    return delete_task(task_id)

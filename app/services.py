@@ -22,3 +22,12 @@ def update_task(task_id: int, task_data: TaskCreate):
     storage.tasks[task_id] = updated_task_dict
 
     return updated_task_dict
+
+
+def delete_task(task_id: int):
+    if task_id not in storage.tasks:
+        raise HTTPException(status_code=404, detail='Task not found')
+
+    del storage.tasks[task_id]
+
+    return {"success": True}
