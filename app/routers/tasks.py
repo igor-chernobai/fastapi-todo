@@ -2,7 +2,7 @@ from fastapi import APIRouter
 
 from app import storage
 from app.schemas import TaskCreate, TaskResponse
-from app.services import update_task, delete_task, create_task
+from app.services.tasks import update_task, delete_task, create_task
 
 task_router = APIRouter(prefix='/tasks', tags=['Tasks'])
 

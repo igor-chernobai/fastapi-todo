@@ -1,6 +1,6 @@
 from celery import Celery
 
-from app.services import fetch_users, save_to_csv
+from app.services.users import fetch_users, save_to_csv
 
 celery_app = Celery('tasks', broker='redis://redis:6379/0')
 
