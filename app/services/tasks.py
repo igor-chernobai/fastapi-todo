@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 
-from app.schemas import TaskCreate, TaskResponse
 from app import storage
+from app.schemas import TaskCreate, TaskResponse
 
 
 def create_task(task: TaskCreate) -> TaskResponse:

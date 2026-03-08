@@ -1,4 +1,6 @@
-import csv, httpx
+import csv
+
+import httpx
 
 
 def save_to_csv(users: list):

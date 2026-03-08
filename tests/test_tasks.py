@@ -44,7 +44,7 @@ def test_update_task_success(client, get_task_id):
 
 
 def test_update_task_validation_errors(client, get_task_id):
-    response = client.put(f'/tasks/9999/', json={'title': 'Updated task', 'completed': True})
+    response = client.put('/tasks/9999/', json={'title': 'Updated task', 'completed': True})
     assert response.status_code == 404
 
     response = client.put(f'/tasks/{get_task_id}/', json={'title': 'Updated task'})
@@ -57,12 +57,12 @@ def test_update_task_validation_errors(client, get_task_id):
 def test_delete_task_success(client, get_task_id):
     response = client.delete(f'/tasks/{get_task_id}')
     assert response.status_code == 200
-    assert response.json()['success'] == True
+    assert response.json()['success'] is True
 
     response = client.get('/tasks/')
     assert len(response.json()) == 0
 
 
-def test_delete_task_not_found(client, get_task_id):
+def test_delete_task_not_found(client):
     response = client.delete('/tasks/99999/')
     assert response.status_code == 404
