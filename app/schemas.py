@@ -10,3 +10,7 @@ class TaskResponse(BaseModel):
     id: int
     title: str
     completed: bool
+
+
+class PredictIn(BaseModel):
+    description: str
