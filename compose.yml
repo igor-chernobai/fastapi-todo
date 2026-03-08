@@ -8,10 +8,19 @@ services:
   app:
     build: .
     restart: always
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     volumes:
       - .:/usr/src/app
     ports:
       - "8000:8000"
     depends_on:
       - redis
+
+  worker:
+    build: .
+    volumes:
+      - .:/usr/src/app
+    restart: always
+    depends_on:
+      - redis
+    command: celery -A app.celery_tasks.celery_app worker --loglevel=INFO

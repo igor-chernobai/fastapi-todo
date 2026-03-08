@@ -1,7 +1,9 @@
 from fastapi import FastAPI
 
 from app.routers.tasks import task_router
+from app.routers.users import users_router
 
 app = FastAPI()
 
 app.include_router(task_router)
+app.include_router(users_router)
