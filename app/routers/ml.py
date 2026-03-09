@@ -3,7 +3,7 @@ from fastapi import APIRouter
 from app.schemas import PredictIn
 from app.services.ml import get_prediction
 
-ml_router = APIRouter(prefix='/ml', tags=['ML-integration'])
+ml_router = APIRouter(tags=['ML-integration'])
 
 
 @ml_router.post('/predict')
